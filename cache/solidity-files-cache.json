@@ -1,0 +1,114 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "/Users/jonshapiro/Desktop/Dev/Crypto/avax/iceage/SFI-IceAge/sfi-farm-contracts/contracts/StakingRewards.sol": {
+      "lastModificationDate": 1632796282578,
+      "contentHash": "ad7976237c9ed714996e8a3a17cff5d3",
+      "sourceName": "contracts/StakingRewards.sol",
+      "solcConfig": {
+        "version": "0.6.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.6.0",
+        "^0.6.7",
+        "^0.6.7",
+        "^0.6.0",
+        "^0.6.0",
+        "^0.6.0",
+        "^0.6.7"
+      ],
+      "artifacts": [
+        "Address",
+        "Context",
+        "ERC20",
+        "IERC20",
+        "Owned",
+        "Pausable",
+        "ReentrancyGuard",
+        "SafeERC20",
+        "SafeMath",
+        "StakingRewards"
+      ]
+    },
+    "/Users/jonshapiro/Desktop/Dev/Crypto/avax/iceage/SFI-IceAge/sfi-farm-contracts/contracts/SFIIceAge918.sol": {
+      "lastModificationDate": 1632008558689,
+      "contentHash": "3f35039d0a4872456cc926a05f1a7a43",
+      "sourceName": "contracts/SFIIceAge918.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0",
+        "^0.8.0",
+        "^0.8.0",
+        "^0.8.0",
+        "^0.8.0",
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Address",
+        "Context",
+        "IERC20",
+        "Ownable",
+        "SFIIceAge918",
+        "SafeMath"
+      ]
+    }
+  }
+}
