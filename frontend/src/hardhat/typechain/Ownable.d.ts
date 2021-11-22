@@ -22,11 +22,19 @@ import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 
 interface OwnableInterface extends ethers.utils.Interface {
   functions: {
+    "geUnlockTime()": FunctionFragment;
+    "lock(uint256)": FunctionFragment;
     "owner()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
+    "unlock()": FunctionFragment;
   };
 
+  encodeFunctionData(
+    functionFragment: "geUnlockTime",
+    values?: undefined
+  ): string;
+  encodeFunctionData(functionFragment: "lock", values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "renounceOwnership",
@@ -36,7 +44,13 @@ interface OwnableInterface extends ethers.utils.Interface {
     functionFragment: "transferOwnership",
     values: [string]
   ): string;
+  encodeFunctionData(functionFragment: "unlock", values?: undefined): string;
 
+  decodeFunctionResult(
+    functionFragment: "geUnlockTime",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "lock", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "renounceOwnership",
@@ -46,6 +60,7 @@ interface OwnableInterface extends ethers.utils.Interface {
     functionFragment: "transferOwnership",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "unlock", data: BytesLike): Result;
 
   events: {
     "OwnershipTransferred(address,address)": EventFragment;
@@ -68,6 +83,24 @@ export class Ownable extends Contract {
   interface: OwnableInterface;
 
   functions: {
+    geUnlockTime(overrides?: CallOverrides): Promise<{
+      0: BigNumber;
+    }>;
+
+    "geUnlockTime()"(overrides?: CallOverrides): Promise<{
+      0: BigNumber;
+    }>;
+
+    lock(
+      time: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
+
+    "lock(uint256)"(
+      time: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
+
     owner(overrides?: CallOverrides): Promise<{
       0: string;
     }>;
@@ -89,7 +122,22 @@ export class Ownable extends Contract {
       newOwner: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
+
+    unlock(overrides?: Overrides): Promise<ContractTransaction>;
+
+    "unlock()"(overrides?: Overrides): Promise<ContractTransaction>;
   };
+
+  geUnlockTime(overrides?: CallOverrides): Promise<BigNumber>;
+
+  "geUnlockTime()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+  lock(time: BigNumberish, overrides?: Overrides): Promise<ContractTransaction>;
+
+  "lock(uint256)"(
+    time: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
 
   owner(overrides?: CallOverrides): Promise<string>;
 
@@ -109,7 +157,22 @@ export class Ownable extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
+  unlock(overrides?: Overrides): Promise<ContractTransaction>;
+
+  "unlock()"(overrides?: Overrides): Promise<ContractTransaction>;
+
   callStatic: {
+    geUnlockTime(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "geUnlockTime()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    lock(time: BigNumberish, overrides?: CallOverrides): Promise<void>;
+
+    "lock(uint256)"(
+      time: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     owner(overrides?: CallOverrides): Promise<string>;
 
     "owner()"(overrides?: CallOverrides): Promise<string>;
@@ -127,6 +190,10 @@ export class Ownable extends Contract {
       newOwner: string,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    unlock(overrides?: CallOverrides): Promise<void>;
+
+    "unlock()"(overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {
@@ -137,6 +204,17 @@ export class Ownable extends Contract {
   };
 
   estimateGas: {
+    geUnlockTime(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "geUnlockTime()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    lock(time: BigNumberish, overrides?: Overrides): Promise<BigNumber>;
+
+    "lock(uint256)"(
+      time: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>;
+
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
     "owner()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -154,9 +232,27 @@ export class Ownable extends Contract {
       newOwner: string,
       overrides?: Overrides
     ): Promise<BigNumber>;
+
+    unlock(overrides?: Overrides): Promise<BigNumber>;
+
+    "unlock()"(overrides?: Overrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
+    geUnlockTime(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "geUnlockTime()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    lock(
+      time: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
+    "lock(uint256)"(
+      time: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "owner()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -174,5 +270,9 @@ export class Ownable extends Contract {
       newOwner: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>;
+
+    unlock(overrides?: Overrides): Promise<PopulatedTransaction>;
+
+    "unlock()"(overrides?: Overrides): Promise<PopulatedTransaction>;
   };
 }

@@ -38,6 +38,32 @@ const _abi = [
   },
   {
     inputs: [],
+    name: "geUnlockTime",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "time",
+        type: "uint256",
+      },
+    ],
+    name: "lock",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
     name: "owner",
     outputs: [
       {
@@ -65,6 +91,13 @@ const _abi = [
       },
     ],
     name: "transferOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "unlock",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

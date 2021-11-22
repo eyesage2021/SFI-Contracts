@@ -10,6 +10,7 @@ import "@typechain/ethers-v5";
 require("dotenv").config();
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
+const PRIVATE_KEY_MAIN = process.env.PRIVATE_KEY_MAIN;
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -38,6 +39,11 @@ const config: HardhatUserConfig = {
         url: "https://api.avax.network/ext/bc/C/rpc",
       }
     },
+    avax: {
+      accounts: [PRIVATE_KEY_MAIN],
+      chainId: 43114,
+      url: "https://api.avax.network/ext/bc/C/rpc",
+    },    
     fuji: {
       url: "https://api.avax-test.network/ext/bc/C/rpc",
       accounts: [PRIVATE_KEY],

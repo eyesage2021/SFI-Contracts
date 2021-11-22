@@ -6,12 +6,24 @@ import React, { useEffect, useState } from "react";
 import Web3Modal, { IProviderOptions } from "web3modal";
 import { SFIIceAge918 } from "./typechain/SFIIceAge918";
 import { SFIIceAge918__factory } from "./typechain/factories/SFIIceAge918__factory";
-import { ERC20 } from "./typechain/ERC20";
-import { ERC20__factory } from "./typechain/factories/ERC20__factory";
 import { Owned } from "./typechain/Owned";
 import { Owned__factory } from "./typechain/factories/Owned__factory";
-import { StakingRewards } from "./typechain/StakingRewards";
-import { StakingRewards__factory } from "./typechain/factories/StakingRewards__factory";
+import { ERC20 } from "./typechain/ERC20";
+import { ERC20__factory } from "./typechain/factories/ERC20__factory";
+import { SL31010 } from "./typechain/SL31010";
+import { SL31010__factory } from "./typechain/factories/SL31010__factory";
+import StakingRewardsPGLSFIDeployment from "./deployments/avax/StakingRewardsPGLSFI.json";
+import { StakingRewardsPGLSFI } from "./typechain/StakingRewardsPGLSFI";
+import { StakingRewardsPGLSFI__factory } from "./typechain/factories/StakingRewardsPGLSFI__factory";
+import StakingRewardsSFITaxDeployment from "./deployments/avax/StakingRewardsSFITax.json";
+import { StakingRewardsSFITax } from "./typechain/StakingRewardsSFITax";
+import { StakingRewardsSFITax__factory } from "./typechain/factories/StakingRewardsSFITax__factory";
+import StakingRewardsPGLSL3Deployment from "./deployments/avax/StakingRewardsPGLSL3.json";
+import { StakingRewardsPGLSL3 } from "./typechain/StakingRewardsPGLSL3";
+import { StakingRewardsPGLSL3__factory } from "./typechain/factories/StakingRewardsPGLSL3__factory";
+import StakingRewardsSL3TaxDeployment from "./deployments/avax/StakingRewardsSL3Tax.json";
+import { StakingRewardsSL3Tax } from "./typechain/StakingRewardsSL3Tax";
+import { StakingRewardsSL3Tax__factory } from "./typechain/factories/StakingRewardsSL3Tax__factory";
 
 const emptyContract = {
     instance: undefined,
@@ -32,9 +44,13 @@ const defaultSymfoniContext: SymfoniContextInterface = {
 };
 export const SymfoniContext = React.createContext<SymfoniContextInterface>(defaultSymfoniContext);
 export const SFIIceAge918Context = React.createContext<SymfoniSFIIceAge918>(emptyContract);
-export const ERC20Context = React.createContext<SymfoniERC20>(emptyContract);
 export const OwnedContext = React.createContext<SymfoniOwned>(emptyContract);
-export const StakingRewardsContext = React.createContext<SymfoniStakingRewards>(emptyContract);
+export const ERC20Context = React.createContext<SymfoniERC20>(emptyContract);
+export const SL31010Context = React.createContext<SymfoniSL31010>(emptyContract);
+export const StakingRewardsPGLSFIContext = React.createContext<SymfoniStakingRewardsPGLSFI>(emptyContract);
+export const StakingRewardsSFITaxContext = React.createContext<SymfoniStakingRewardsSFITax>(emptyContract);
+export const StakingRewardsPGLSL3Context = React.createContext<SymfoniStakingRewardsPGLSL3>(emptyContract);
+export const StakingRewardsSL3TaxContext = React.createContext<SymfoniStakingRewardsSL3Tax>(emptyContract);
 
 export interface SymfoniContextInterface {
     init: (provider?: string) => void;
@@ -55,19 +71,39 @@ export interface SymfoniSFIIceAge918 {
     factory?: SFIIceAge918__factory;
 }
 
-export interface SymfoniERC20 {
-    instance?: ERC20;
-    factory?: ERC20__factory;
-}
-
 export interface SymfoniOwned {
     instance?: Owned;
     factory?: Owned__factory;
 }
 
-export interface SymfoniStakingRewards {
-    instance?: StakingRewards;
-    factory?: StakingRewards__factory;
+export interface SymfoniERC20 {
+    instance?: ERC20;
+    factory?: ERC20__factory;
+}
+
+export interface SymfoniSL31010 {
+    instance?: SL31010;
+    factory?: SL31010__factory;
+}
+
+export interface SymfoniStakingRewardsPGLSFI {
+    instance?: StakingRewardsPGLSFI;
+    factory?: StakingRewardsPGLSFI__factory;
+}
+
+export interface SymfoniStakingRewardsSFITax {
+    instance?: StakingRewardsSFITax;
+    factory?: StakingRewardsSFITax__factory;
+}
+
+export interface SymfoniStakingRewardsPGLSL3 {
+    instance?: StakingRewardsPGLSL3;
+    factory?: StakingRewardsPGLSL3__factory;
+}
+
+export interface SymfoniStakingRewardsSL3Tax {
+    instance?: StakingRewardsSL3Tax;
+    factory?: StakingRewardsSL3Tax__factory;
 }
 
 export const Symfoni: React.FC<SymfoniProps> = ({
@@ -85,9 +121,13 @@ export const Symfoni: React.FC<SymfoniProps> = ({
     const [fallbackProvider] = useState<string | undefined>(undefined);
     const [providerPriority, setProviderPriority] = useState<string[]>(["web3modal", "hardhat"]);
     const [SFIIceAge918, setSFIIceAge918] = useState<SymfoniSFIIceAge918>(emptyContract);
-    const [ERC20, setERC20] = useState<SymfoniERC20>(emptyContract);
     const [Owned, setOwned] = useState<SymfoniOwned>(emptyContract);
-    const [StakingRewards, setStakingRewards] = useState<SymfoniStakingRewards>(emptyContract);
+    const [ERC20, setERC20] = useState<SymfoniERC20>(emptyContract);
+    const [SL31010, setSL31010] = useState<SymfoniSL31010>(emptyContract);
+    const [StakingRewardsPGLSFI, setStakingRewardsPGLSFI] = useState<SymfoniStakingRewardsPGLSFI>(emptyContract);
+    const [StakingRewardsSFITax, setStakingRewardsSFITax] = useState<SymfoniStakingRewardsSFITax>(emptyContract);
+    const [StakingRewardsPGLSL3, setStakingRewardsPGLSL3] = useState<SymfoniStakingRewardsPGLSL3>(emptyContract);
+    const [StakingRewardsSL3Tax, setStakingRewardsSL3Tax] = useState<SymfoniStakingRewardsSL3Tax>(emptyContract);
     useEffect(() => {
         if (messages.length > 0)
             console.debug(messages.pop())
@@ -166,9 +206,13 @@ export const Symfoni: React.FC<SymfoniProps> = ({
             }
             const finishWithContracts = (text: string) => {
                 setSFIIceAge918(getSFIIceAge918(_provider, _signer))
-                setERC20(getERC20(_provider, _signer))
                 setOwned(getOwned(_provider, _signer))
-                setStakingRewards(getStakingRewards(_provider, _signer))
+                setERC20(getERC20(_provider, _signer))
+                setSL31010(getSL31010(_provider, _signer))
+                setStakingRewardsPGLSFI(getStakingRewardsPGLSFI(_provider, _signer))
+                setStakingRewardsSFITax(getStakingRewardsSFITax(_provider, _signer))
+                setStakingRewardsPGLSL3(getStakingRewardsPGLSL3(_provider, _signer))
+                setStakingRewardsSL3Tax(getStakingRewardsSL3Tax(_provider, _signer))
                 finish(text)
             }
             if (!autoInit && initializeCounter === 0) return finish("Auto init turned off.")
@@ -206,15 +250,6 @@ export const Symfoni: React.FC<SymfoniProps> = ({
         return contract
     }
         ;
-    const getERC20 = (_provider: providers.Provider, _signer?: Signer) => {
-        let instance = _signer ? ERC20__factory.connect(ethers.constants.AddressZero, _signer) : ERC20__factory.connect(ethers.constants.AddressZero, _provider)
-        const contract: SymfoniERC20 = {
-            instance: instance,
-            factory: _signer ? new ERC20__factory(_signer) : undefined,
-        }
-        return contract
-    }
-        ;
     const getOwned = (_provider: providers.Provider, _signer?: Signer) => {
         let instance = _signer ? Owned__factory.connect(ethers.constants.AddressZero, _signer) : Owned__factory.connect(ethers.constants.AddressZero, _provider)
         const contract: SymfoniOwned = {
@@ -224,11 +259,64 @@ export const Symfoni: React.FC<SymfoniProps> = ({
         return contract
     }
         ;
-    const getStakingRewards = (_provider: providers.Provider, _signer?: Signer) => {
-        let instance = _signer ? StakingRewards__factory.connect(ethers.constants.AddressZero, _signer) : StakingRewards__factory.connect(ethers.constants.AddressZero, _provider)
-        const contract: SymfoniStakingRewards = {
+    const getERC20 = (_provider: providers.Provider, _signer?: Signer) => {
+        let instance = _signer ? ERC20__factory.connect(ethers.constants.AddressZero, _signer) : ERC20__factory.connect(ethers.constants.AddressZero, _provider)
+        const contract: SymfoniERC20 = {
             instance: instance,
-            factory: _signer ? new StakingRewards__factory(_signer) : undefined,
+            factory: _signer ? new ERC20__factory(_signer) : undefined,
+        }
+        return contract
+    }
+        ;
+    const getSL31010 = (_provider: providers.Provider, _signer?: Signer) => {
+        let instance = _signer ? SL31010__factory.connect(ethers.constants.AddressZero, _signer) : SL31010__factory.connect(ethers.constants.AddressZero, _provider)
+        const contract: SymfoniSL31010 = {
+            instance: instance,
+            factory: _signer ? new SL31010__factory(_signer) : undefined,
+        }
+        return contract
+    }
+        ;
+    const getStakingRewardsPGLSFI = (_provider: providers.Provider, _signer?: Signer) => {
+
+        const contractAddress = StakingRewardsPGLSFIDeployment.receipt.contractAddress
+        const instance = _signer ? StakingRewardsPGLSFI__factory.connect(contractAddress, _signer) : StakingRewardsPGLSFI__factory.connect(contractAddress, _provider)
+        const contract: SymfoniStakingRewardsPGLSFI = {
+            instance: instance,
+            factory: _signer ? new StakingRewardsPGLSFI__factory(_signer) : undefined,
+        }
+        return contract
+    }
+        ;
+    const getStakingRewardsSFITax = (_provider: providers.Provider, _signer?: Signer) => {
+
+        const contractAddress = StakingRewardsSFITaxDeployment.receipt.contractAddress
+        const instance = _signer ? StakingRewardsSFITax__factory.connect(contractAddress, _signer) : StakingRewardsSFITax__factory.connect(contractAddress, _provider)
+        const contract: SymfoniStakingRewardsSFITax = {
+            instance: instance,
+            factory: _signer ? new StakingRewardsSFITax__factory(_signer) : undefined,
+        }
+        return contract
+    }
+        ;
+    const getStakingRewardsPGLSL3 = (_provider: providers.Provider, _signer?: Signer) => {
+
+        const contractAddress = StakingRewardsPGLSL3Deployment.receipt.contractAddress
+        const instance = _signer ? StakingRewardsPGLSL3__factory.connect(contractAddress, _signer) : StakingRewardsPGLSL3__factory.connect(contractAddress, _provider)
+        const contract: SymfoniStakingRewardsPGLSL3 = {
+            instance: instance,
+            factory: _signer ? new StakingRewardsPGLSL3__factory(_signer) : undefined,
+        }
+        return contract
+    }
+        ;
+    const getStakingRewardsSL3Tax = (_provider: providers.Provider, _signer?: Signer) => {
+
+        const contractAddress = StakingRewardsSL3TaxDeployment.receipt.contractAddress
+        const instance = _signer ? StakingRewardsSL3Tax__factory.connect(contractAddress, _signer) : StakingRewardsSL3Tax__factory.connect(contractAddress, _provider)
+        const contract: SymfoniStakingRewardsSL3Tax = {
+            instance: instance,
+            factory: _signer ? new StakingRewardsSL3Tax__factory(_signer) : undefined,
         }
         return contract
     }
@@ -248,22 +336,30 @@ export const Symfoni: React.FC<SymfoniProps> = ({
                 <SignerContext.Provider value={[signer, setSigner]}>
                     <CurrentAddressContext.Provider value={[currentAddress, setCurrentAddress]}>
                         <SFIIceAge918Context.Provider value={SFIIceAge918}>
-                            <ERC20Context.Provider value={ERC20}>
-                                <OwnedContext.Provider value={Owned}>
-                                    <StakingRewardsContext.Provider value={StakingRewards}>
-                                        {showLoading && loading ?
-                                            props.loadingComponent
-                                                ? props.loadingComponent
-                                                : <div>
-                                                    {messages.map((msg, i) => (
-                                                        <p key={i}>{msg}</p>
-                                                    ))}
-                                                </div>
-                                            : props.children
-                                        }
-                                    </StakingRewardsContext.Provider >
-                                </OwnedContext.Provider >
-                            </ERC20Context.Provider >
+                            <OwnedContext.Provider value={Owned}>
+                                <ERC20Context.Provider value={ERC20}>
+                                    <SL31010Context.Provider value={SL31010}>
+                                        <StakingRewardsPGLSFIContext.Provider value={StakingRewardsPGLSFI}>
+                                            <StakingRewardsSFITaxContext.Provider value={StakingRewardsSFITax}>
+                                                <StakingRewardsPGLSL3Context.Provider value={StakingRewardsPGLSL3}>
+                                                    <StakingRewardsSL3TaxContext.Provider value={StakingRewardsSL3Tax}>
+                                                        {showLoading && loading ?
+                                                            props.loadingComponent
+                                                                ? props.loadingComponent
+                                                                : <div>
+                                                                    {messages.map((msg, i) => (
+                                                                        <p key={i}>{msg}</p>
+                                                                    ))}
+                                                                </div>
+                                                            : props.children
+                                                        }
+                                                    </StakingRewardsSL3TaxContext.Provider >
+                                                </StakingRewardsPGLSL3Context.Provider >
+                                            </StakingRewardsSFITaxContext.Provider >
+                                        </StakingRewardsPGLSFIContext.Provider >
+                                    </SL31010Context.Provider >
+                                </ERC20Context.Provider >
+                            </OwnedContext.Provider >
                         </SFIIceAge918Context.Provider >
                     </CurrentAddressContext.Provider>
                 </SignerContext.Provider>
